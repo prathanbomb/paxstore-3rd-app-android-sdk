@@ -1,14 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.pax.android.demoapp"
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdkVersion 29
         versionCode 115
         versionName "7.0.1"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -20,6 +20,7 @@ android {
     lintOptions {
         abortOnError false
     }
+    buildToolsVersion = '29.0.2'
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
@@ -33,7 +34,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'net.grandcentrix.tray:tray:0.12.0'
-    implementation 'com.android.support:appcompat-v7:27.0.+'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'org.slf4j:slf4j-android:1.7.30'
 
     implementation project(':sdk')
+    implementation 'commons-io:commons-io:2.6'
 }

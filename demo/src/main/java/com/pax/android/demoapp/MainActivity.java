@@ -8,7 +8,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +18,8 @@ import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.app.ActivityCompat;
 
 import com.pax.market.android.app.sdk.BaseApiService;
 import com.pax.market.android.app.sdk.LocationService;
@@ -68,19 +69,19 @@ public class MainActivity extends Activity {
         spUtil=new SPUtil();
 
 
-        bannerTitleTV = (TextView) findViewById(R.id.banner_title);
-        bannerTextTV = (TextView) findViewById(R.id.banner_text);
-        bannerSubTextTV = (TextView) findViewById(R.id.banner_sub_text);
-        tradingStateSwitch = (Switch) findViewById(R.id.tradingStateSwitch);
-        openClientlayout = (LinearLayout) findViewById(R.id.openAppDetail);
-        checkUpdate = (LinearLayout) findViewById(R.id.check_update);
-        versionTV = (TextView)findViewById(R.id.versionText);
+        bannerTitleTV = findViewById(R.id.banner_title);
+        bannerTextTV = findViewById(R.id.banner_text);
+        bannerSubTextTV = findViewById(R.id.banner_sub_text);
+        tradingStateSwitch = findViewById(R.id.tradingStateSwitch);
+        openClientlayout = findViewById(R.id.openAppDetail);
+        checkUpdate = findViewById(R.id.check_update);
+        versionTV = findViewById(R.id.versionText);
 
-        openDownloadList = (LinearLayout) findViewById(R.id.open_downloadlist_page);
-        lvRetrieveData = (LinearLayout) findViewById(R.id.lv_retrieve_data);
-        lvChildRetrieve = (LinearLayout) findViewById(R.id.lv_childs_retrieve);
-        mImgArrow = (ImageView) findViewById(R.id.img_retrieve_data);
-        getTerminalLocation = (Button) findViewById(R.id.get_location);
+        openDownloadList = findViewById(R.id.open_downloadlist_page);
+        lvRetrieveData = findViewById(R.id.lv_retrieve_data);
+        lvChildRetrieve = findViewById(R.id.lv_childs_retrieve);
+        mImgArrow = findViewById(R.id.img_retrieve_data);
+        getTerminalLocation = findViewById(R.id.get_location);
 
         versionTV.setText(getResources().getString(R.string.label_version_text)+" "+BuildConfig.VERSION_NAME);
 
@@ -246,7 +247,7 @@ public class MainActivity extends Activity {
         });
 
         //TODO remove
-        getOnlineStatus = (Button) findViewById(R.id.get_online_status);
+        getOnlineStatus = findViewById(R.id.get_online_status);
         getOnlineStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,14 +2,24 @@ package com.pax.market.android.app.sdk;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.pax.market.api.sdk.java.base.util.StringUtils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static com.pax.market.android.app.sdk.PushConstants.*;
+import static com.pax.market.android.app.sdk.PushConstants.ACTION_DATA_MESSAGE_RECEIVED;
+import static com.pax.market.android.app.sdk.PushConstants.ACTION_NOTIFICATION_MESSAGE_RECEIVED;
+import static com.pax.market.android.app.sdk.PushConstants.ACTION_NOTIFY_DATA_MESSAGE_RECEIVED;
+import static com.pax.market.android.app.sdk.PushConstants.EXTRA_MESSAGE_CONTENT;
+import static com.pax.market.android.app.sdk.PushConstants.EXTRA_MESSAGE_DATA;
+import static com.pax.market.android.app.sdk.PushConstants.EXTRA_MESSAGE_NID;
+import static com.pax.market.android.app.sdk.PushConstants.EXTRA_MESSAGE_TITLE;
+import static com.pax.market.android.app.sdk.PushConstants.PUSH_MESSAGE;
+import static com.pax.market.android.app.sdk.PushConstants.PUSH_MESSAGE_ID;
+import static com.pax.market.android.app.sdk.PushConstants.PUSH_MESSAGE_TYPE;
 
 /**
  * Created by fojut on 2019/5/17.

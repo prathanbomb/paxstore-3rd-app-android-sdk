@@ -19,9 +19,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.RemoteViews;
+
+import androidx.core.app.NotificationCompat;
 
 import com.pax.market.api.sdk.java.base.util.StringUtils;
 
@@ -31,7 +32,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import static com.pax.market.android.app.sdk.PushConstants.*;
+import static com.pax.market.android.app.sdk.PushConstants.ACTION_NOTIFICATION_CANCEL;
+import static com.pax.market.android.app.sdk.PushConstants.ACTION_NOTIFICATION_CLICK;
+import static com.pax.market.android.app.sdk.PushConstants.EXTRA_MESSAGE_CONTENT;
+import static com.pax.market.android.app.sdk.PushConstants.EXTRA_MESSAGE_DATA;
+import static com.pax.market.android.app.sdk.PushConstants.EXTRA_MESSAGE_NID;
+import static com.pax.market.android.app.sdk.PushConstants.EXTRA_MESSAGE_TITLE;
 
 public final class Notifications {
 
