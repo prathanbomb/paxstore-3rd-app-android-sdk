@@ -71,7 +71,7 @@ public class BaseApiService implements ProxyDelegate {
             public void onServiceConnected(ComponentName name, IBinder service) {
                 try {
                     StoreProxyInfo proxyInfo = IApiUrlService.Stub.asInterface(service).getStoreProxyInfo();
-                    if(proxyInfo != null) {
+                    if (proxyInfo != null) {
                         logger.info(">>> Init proxy from PAXSTORE : proxy[@{}/{}:{}], has proxy authenticator={}",
                                 proxyInfo.getType() == 1 ? "HTTP" : proxyInfo.getType() == 2 ? "SOCKS" : "DIRECT",
                                 proxyInfo.getHost(), proxyInfo.getPort(), proxyInfo.getAuthorization() != null);
@@ -105,38 +105,12 @@ public class BaseApiService implements ProxyDelegate {
         }
     }
 
-    private class InitApiParams {
-        Callback callback1;
-        ApiCallBack apiCallBack;
-        String apiUrl;
-
-        InitApiParams(ApiCallBack apiCallBack, Callback callback1, String apiUrl) {
-            this.callback1 = callback1;
-            this.apiCallBack = apiCallBack;
-            this.apiUrl = apiUrl;
-        }
-    }
-
-    private class InitApiAsyncTask extends AsyncTask<InitApiParams, Void, Void> {
-
-        @Override
-        protected Void doInBackground(InitApiParams... initApiParams) {
-            InitApiParams initApiParams1 = initApiParams[0];
-            if (initApiParams1 == null) {
-                return null;
-            }
-            initApiParams1.apiCallBack.initSuccess(initApiParams1.apiUrl);
-            initApiParams1.callback1.initSuccess();
-            return null;
-        }
-    }
-
     @Override
     public Proxy retrieveProxy() {
         Proxy proxy = null;
         StoreProxyInfo storeProxyInfo = getStoreProxyInfo();
-        if(storeProxyInfo != null){
-            switch (storeProxyInfo.getType()){
+        if (storeProxyInfo != null) {
+            switch (storeProxyInfo.getType()) {
                 case 1:     // HTTP
                     proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(storeProxyInfo.getHost(), storeProxyInfo.getPort()));
                     break;
@@ -157,40 +131,19 @@ public class BaseApiService implements ProxyDelegate {
         return storeProxyInfo == null ? null : storeProxyInfo.getAuthorization();
     }
 
-
-    public interface Callback {
-        void initSuccess();
-
-        void initFailed(RemoteException e);
-    }
-
-
-    public interface ApiCallBack {
-        void initSuccess(String baseUrl);
-
-        void initFailed();
-    }
-
-    public interface ICallBack {
-        void onSuccess(Object obj);
-
-        void onError(Exception e);
-    }
-
-
     public void getBaseTerminalInfo(final ICallBack iCallBack) {
         ServiceConnection serviceConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 try {
                     TerminalInfo terminalInfo = IRemoteSdkService.Stub.asInterface(service).getBaseTerminalInfo();
-                    if(terminalInfo == null || terminalInfo.getTid()==null || terminalInfo.getTid().isEmpty()){
+                    if (terminalInfo == null || terminalInfo.getTid() == null || terminalInfo.getTid().isEmpty()) {
                         if (terminalInfo.getBussinessCode() == QueryResult.GET_INFO_NOT_ALLOWED.getCode()) {
                             iCallBack.onError(new RemoteException(QueryResult.GET_INFO_NOT_ALLOWED.getMsg()));
                         } else {
                             iCallBack.onError(new RemoteException(ERR_MSG_NULL_RETURNED));
                         }
-                    }else {
+                    } else {
                         iCallBack.onSuccess(terminalInfo);
                     }
                 } catch (RemoteException e) {
@@ -215,10 +168,21 @@ public class BaseApiService implements ProxyDelegate {
         }
     }
 
+    public StoreProxyInfo getStoreProxyInfo() {
+        if (this.storeProxy == null && sp.getInt(SP_STORE_PROXY_TYPE, -1) != -1) {
+            StoreProxyInfo storeProxyInfo = new StoreProxyInfo();
+            storeProxyInfo.setType(sp.getInt(SP_STORE_PROXY_TYPE, -1));
+            storeProxyInfo.setHost(sp.getString(SP_STORE_PROXY_HOST, null));
+            storeProxyInfo.setPort(sp.getInt(SP_STORE_PROXY_PORT, 0));
+            storeProxyInfo.setAuthorization(sp.getString(SP_STORE_PROXY_AUTH, null));
+            this.storeProxy = storeProxyInfo;
+        }
+        return this.storeProxy;
+    }
 
-    public void setStoreProxyInfo(StoreProxyInfo storeProxyInfo){
+    public void setStoreProxyInfo(StoreProxyInfo storeProxyInfo) {
         SharedPreferences.Editor editor = sp.edit();
-        if(storeProxyInfo == null){
+        if (storeProxyInfo == null) {
             editor.remove(SP_STORE_PROXY_TYPE)
                     .remove(SP_STORE_PROXY_HOST)
                     .remove(SP_STORE_PROXY_PORT)
@@ -233,15 +197,49 @@ public class BaseApiService implements ProxyDelegate {
         this.storeProxy = storeProxyInfo;
     }
 
-    public StoreProxyInfo getStoreProxyInfo(){
-        if(this.storeProxy == null && sp.getInt(SP_STORE_PROXY_TYPE, -1) != -1){
-            StoreProxyInfo storeProxyInfo = new StoreProxyInfo();
-            storeProxyInfo.setType(sp.getInt(SP_STORE_PROXY_TYPE, -1));
-            storeProxyInfo.setHost(sp.getString(SP_STORE_PROXY_HOST, null));
-            storeProxyInfo.setPort(sp.getInt(SP_STORE_PROXY_PORT, 0));
-            storeProxyInfo.setAuthorization(sp.getString(SP_STORE_PROXY_AUTH, null));
-            this.storeProxy = storeProxyInfo;
+
+    public interface Callback {
+        void initSuccess();
+
+        void initFailed(RemoteException e);
+    }
+
+    public interface ApiCallBack {
+        void initSuccess(String baseUrl);
+
+        void initFailed();
+    }
+
+
+    public interface ICallBack {
+        void onSuccess(Object obj);
+
+        void onError(Exception e);
+    }
+
+    private class InitApiParams {
+        Callback callback1;
+        ApiCallBack apiCallBack;
+        String apiUrl;
+
+        InitApiParams(ApiCallBack apiCallBack, Callback callback1, String apiUrl) {
+            this.callback1 = callback1;
+            this.apiCallBack = apiCallBack;
+            this.apiUrl = apiUrl;
         }
-        return this.storeProxy;
+    }
+
+    private class InitApiAsyncTask extends AsyncTask<InitApiParams, Void, Void> {
+
+        @Override
+        protected Void doInBackground(InitApiParams... initApiParams) {
+            InitApiParams initApiParams1 = initApiParams[0];
+            if (initApiParams1 == null) {
+                return null;
+            }
+            initApiParams1.apiCallBack.initSuccess(initApiParams1.apiUrl);
+            initApiParams1.callback1.initSuccess();
+            return null;
+        }
     }
 }

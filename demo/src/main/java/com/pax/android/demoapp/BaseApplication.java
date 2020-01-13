@@ -20,17 +20,13 @@ import net.grandcentrix.tray.AppPreferences;
 public class BaseApplication extends Application {
 
     private static final String TAG = BaseApplication.class.getSimpleName();
-
-    private boolean isReadyToUpdate=true;
-
     //todo make sure to replace with your own app's appkey and appsecret
-    private static final String appkey = "your key";
-    private static final String appSecret = "your secret";
+    private static final String appkey = "BY3FRXA1BZV0VYFQ99M8";
+    private static final String appSecret = "QAZQXMMOHDK43SR903RIDJAI059UWYQ0X8ZO8RT7";
     //todo please make sure get the correct SN here, for pax device you can integrate NeptuneLite SDK to get the correct SN
     private static final String SN = Build.SERIAL;
     public static AppPreferences appPreferences;
-
-
+    private boolean isReadyToUpdate = true;
 
     @Override
     public void onCreate() {
@@ -40,7 +36,6 @@ public class BaseApplication extends Application {
         appPreferences = new AppPreferences(getApplicationContext()); // this Preference comes for free from the library
 
     }
-
 
     private void initPaxStoreSdk() {
         //todo 1. Init AppKey，AppSecret and SN, make sure the appkey and appSecret is corret.
@@ -53,7 +48,7 @@ public class BaseApplication extends Application {
 
             @Override
             public void initFailed(RemoteException e) {
-                Log.i(TAG, "initFailed: "+e.getMessage());
+                Log.i(TAG, "initFailed: " + e.getMessage());
                 Toast.makeText(getApplicationContext(), "Cannot get API URL from PAXSTORE, Please install PAXSTORE first.", Toast.LENGTH_LONG).show();
             }
         });
@@ -65,8 +60,7 @@ public class BaseApplication extends Application {
         //if you want to customize the notification, disable the Notifications we provided through below code.
         // Notifications.I.setEnabled(false);
     }
-
-
+    
     private void initInquirer() {
         //todo 2. Init checking of whether app can be updated
 
@@ -86,9 +80,9 @@ public class BaseApplication extends Application {
 
     public void setReadyToUpdate(boolean readyToUpdate) {
         isReadyToUpdate = readyToUpdate;
-        if(isReadyToUpdate){
+        if (isReadyToUpdate) {
             Toast.makeText(getApplicationContext(), getString(R.string.label_ready_to_update), Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(getApplicationContext(), getString(R.string.label_not_ready_to_update), Toast.LENGTH_SHORT).show();
         }
     }

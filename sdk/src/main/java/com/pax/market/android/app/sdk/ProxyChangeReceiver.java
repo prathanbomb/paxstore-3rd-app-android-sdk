@@ -16,7 +16,7 @@ public class ProxyChangeReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        if(ACTION_PROXY_CHANGE.equals(action)){
+        if (ACTION_PROXY_CHANGE.equals(action)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) { //
                 context.startForegroundService(ProxyChangeService.getCallingIntent(context, intent.getByteArrayExtra(EXTRA_PROXY_INFO)));
             } else {

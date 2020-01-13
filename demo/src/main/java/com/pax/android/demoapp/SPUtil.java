@@ -15,13 +15,14 @@ public class SPUtil {
     }
 
     public String getString(String tag) {
-        String value = BaseApplication.appPreferences.getString(tag,null);
+        String value = BaseApplication.appPreferences.getString(tag, null);
         return value;
 
     }
 
     /**
      * save List
+     *
      * @param tag
      * @param datalist
      */
@@ -37,11 +38,12 @@ public class SPUtil {
 
     /**
      * get List
+     *
      * @param tag
      * @return
      */
     public <T> List<T> getDataList(String tag) {
-        List<T> datalist=new ArrayList<T>();
+        List<T> datalist = new ArrayList<T>();
         String strJson = BaseApplication.appPreferences.getString(tag, null);
         if (null == strJson) {
             return datalist;

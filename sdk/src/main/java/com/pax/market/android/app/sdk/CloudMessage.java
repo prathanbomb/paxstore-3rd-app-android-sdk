@@ -15,25 +15,29 @@ import java.lang.reflect.Type;
 /**
  * CloudMessage示例：
  * {
- *      "notification":{
- *          "title":"Portugal vs. Denmark",      //必填，如果未设置则自动使用应用名称
- *          "content":"great match!"             //非必填
- *      },
- *      "data":{
- *          "nick":"Mario",
- *          "room":"PortugalVSDenmark",
- *          "age":28
- *      }
- *  }
+ * "notification":{
+ * "title":"Portugal vs. Denmark",      //必填，如果未设置则自动使用应用名称
+ * "content":"great match!"             //非必填
+ * },
+ * "data":{
+ * "nick":"Mario",
+ * "room":"PortugalVSDenmark",
+ * "age":28
+ * }
+ * }
  */
 public class CloudMessage {
 
     private static final Logger logger = LoggerFactory.getLogger(CloudMessage.class);
-
+    private static Gson gson;
     private String notificationJson;
     private String dataJson;
 
-    private static Gson gson;
+    private CloudMessage(String notificationJson, String dataJson) {
+        this.notificationJson = notificationJson;
+        this.dataJson = dataJson;
+    }
+
     public static Gson getGson() {
         if (gson == null) {
             synchronized (CloudMessage.class) {
@@ -45,12 +49,7 @@ public class CloudMessage {
         return gson;
     }
 
-    private CloudMessage(String notificationJson, String dataJson) {
-        this.notificationJson = notificationJson;
-        this.dataJson = dataJson;
-    }
-
-    public static CloudMessage fromJson(String json){
+    public static CloudMessage fromJson(String json) {
         JsonParser parser = new JsonParser();
         JsonElement rootElement;
         try {
@@ -61,7 +60,7 @@ public class CloudMessage {
         }
         String notificationJson = null;
         String dataJson = null;
-        if (rootElement.isJsonObject()){
+        if (rootElement.isJsonObject()) {
             try {
                 JsonElement notificationJsonEle = ((JsonObject) rootElement).get(MessageFiled.NOTIFICATION.getName());
                 if (notificationJsonEle != null && notificationJsonEle.isJsonObject()) {
@@ -80,28 +79,11 @@ public class CloudMessage {
             }
         }
 
-        if(StringUtils.isEmpty(notificationJson) && StringUtils.isEmpty(dataJson)){
+        if (StringUtils.isEmpty(notificationJson) && StringUtils.isEmpty(dataJson)) {
             return null;
         }
 
         return new CloudMessage(notificationJson, dataJson);
-    }
-
-    public NotificationMessage getNotification() {
-        try {
-            return getGson().fromJson(notificationJson, NotificationMessage.class);
-        } catch (Exception e) {
-            logger.error("Parse notification json exception, json=%s", notificationJson, e);
-            return null;
-        }
-    }
-
-    public String getDataJson() {
-        return dataJson;
-    }
-
-    public boolean isDataEmpty(){
-        return StringUtils.isEmpty(dataJson);
     }
 
     public static <T> T getDataFromJson(String dataJson, Class<T> classOfT) {
@@ -122,14 +104,33 @@ public class CloudMessage {
         }
     }
 
+    public NotificationMessage getNotification() {
+        try {
+            return getGson().fromJson(notificationJson, NotificationMessage.class);
+        } catch (Exception e) {
+            logger.error("Parse notification json exception, json=%s", notificationJson, e);
+            return null;
+        }
+    }
+
+    public String getDataJson() {
+        return dataJson;
+    }
+
+    public boolean isDataEmpty() {
+        return StringUtils.isEmpty(dataJson);
+    }
+
     public enum MessageFiled {
         NOTIFICATION("notification"),
         DATA("data");
 
-        MessageFiled(String name){
+        private String name;
+
+        MessageFiled(String name) {
             this.name = name;
         }
-        private String name;
+
         public String getName() {
             return name;
         }

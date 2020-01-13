@@ -39,6 +39,7 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
 
     api 'com.pax.market:paxstore-3rd-app-java-sdk:7.0.0'
+    implementation 'com.android.support:appcompat-v7'
 }
 
 publish {

@@ -6,7 +6,7 @@ import com.pax.market.api.sdk.java.base.dto.SdkObject;
  * Created by zcy on 2019/4/29 0029.
  */
 
-public class LocationInfo extends SdkObject{
+public class LocationInfo extends SdkObject {
     private String longitude;
     private String latitude;
     private Long lastLocateTime;

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -58,8 +59,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="16dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:lineSpacingMultiplier="1.2"
@@ -73,8 +74,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="16dp"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:lineSpacingMultiplier="1.2"
@@ -93,10 +94,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/label_param_detail"
                 android:textColor="#a9aabd"
@@ -132,10 +133,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="20dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="10dp"
                 android:fontFamily="sans-serif"
                 android:text="@string/label_function"
                 android:textColor="#a9aabd"
@@ -202,7 +203,7 @@
                         android:layout_gravity="right|center_vertical"
                         android:background="#ffffff"
                         android:padding="16dp"
-                        android:src="@mipmap/list_btn_arrow" />
+                        app:srcCompat="@mipmap/list_btn_arrow" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -240,7 +241,7 @@
                         android:layout_gravity="right|center_vertical"
                         android:background="#ffffff"
                         android:padding="16dp"
-                        android:src="@mipmap/list_btn_arrow" />
+                        app:srcCompat="@mipmap/list_btn_arrow" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -277,7 +278,7 @@
                         android:layout_gravity="right|center_vertical"
                         android:background="#ffffff"
                         android:padding="16dp"
-                        android:src="@mipmap/list_btn_arrow" />
+                        app:srcCompat="@mipmap/list_btn_arrow" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -309,16 +310,16 @@
                     android:layout_gravity="right|center_vertical"
                     android:background="#ffffff"
                     android:padding="16dp"
-                    android:src="@mipmap/list_btn_arrow" />
+                    app:srcCompat="@mipmap/list_btn_arrow" />
 
             </LinearLayout>
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/lv_childs_retrieve"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="match_parent"

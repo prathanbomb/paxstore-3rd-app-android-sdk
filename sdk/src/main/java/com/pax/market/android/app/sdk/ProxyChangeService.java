@@ -51,9 +51,9 @@ public class ProxyChangeService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         byte[] proxyInfoBytes = intent.getByteArrayExtra(ProxyChangeReceiver.EXTRA_PROXY_INFO);
-        if(proxyInfoBytes != null){
+        if (proxyInfoBytes != null) {
             StoreProxyInfo storeProxyInfo = gson.fromJson(new String(proxyInfoBytes, Charset.defaultCharset()), StoreProxyInfo.class);
-            if(storeProxyInfo != null) {
+            if (storeProxyInfo != null) {
                 logger.info(">>> Receive proxy change broadcast: proxy[@{}/{}:{}], has proxy authenticator={}",
                         storeProxyInfo.getType() == 1 ? "HTTP" : storeProxyInfo.getType() == 2 ? "SOCKS" : "DIRECT",
                         storeProxyInfo.getHost(), storeProxyInfo.getPort(), storeProxyInfo.getAuthorization() != null);

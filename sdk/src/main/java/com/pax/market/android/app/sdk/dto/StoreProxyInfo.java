@@ -8,6 +8,17 @@ import android.os.Parcelable;
  */
 public class StoreProxyInfo implements Parcelable {
 
+    public static final Creator<StoreProxyInfo> CREATOR = new Creator<StoreProxyInfo>() {
+        @Override
+        public StoreProxyInfo createFromParcel(Parcel in) {
+            return new StoreProxyInfo(in);
+        }
+
+        @Override
+        public StoreProxyInfo[] newArray(int size) {
+            return new StoreProxyInfo[size];
+        }
+    };
     private int type;   //0:DIRECT, 1:HTTP
     private String host;
     private int port;
@@ -35,18 +46,6 @@ public class StoreProxyInfo implements Parcelable {
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<StoreProxyInfo> CREATOR = new Creator<StoreProxyInfo>() {
-        @Override
-        public StoreProxyInfo createFromParcel(Parcel in) {
-            return new StoreProxyInfo(in);
-        }
-
-        @Override
-        public StoreProxyInfo[] newArray(int size) {
-            return new StoreProxyInfo[size];
-        }
-    };
 
     public int getType() {
         return type;
@@ -86,10 +85,7 @@ public class StoreProxyInfo implements Parcelable {
             return false;
 
         StoreProxyInfo c = (StoreProxyInfo) obj;
-        if(c.toString().equals(toString())){
-            return true;
-        }
-        return false;
+        return c.toString().equals(toString());
     }
 
     @Override

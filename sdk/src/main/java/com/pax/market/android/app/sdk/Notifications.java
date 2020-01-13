@@ -42,22 +42,23 @@ import static com.pax.market.android.app.sdk.PushConstants.EXTRA_MESSAGE_TITLE;
 public final class Notifications {
 
     public static final Notifications I = new Notifications();
-    private int nIdSeq = 1;
+    public static final String CHANNEL_CLOUD_MSG = "channel_cloud_msg";
     private final Map<Integer, Integer> nIds = new HashMap<>();
+    private int nIdSeq = 1;
     private Context context;
     private NotificationManager nm;
     private int smallIcon;
     private Bitmap largeIcon;
     private int defaults;
     private RemoteViews customContentView;
-    public static final String CHANNEL_CLOUD_MSG = "channel_cloud_msg";
     private boolean enabled = true;
+
+    public boolean getEnabled() {
+        return this.enabled;
+    }
 
     public void setEnabled(boolean enable) {
         this.enabled = enable;
-    }
-    public boolean getEnabled() {
-        return this.enabled;
     }
 
     public Notifications init(Context context) {
@@ -180,7 +181,7 @@ public final class Notifications {
         }
         defaultContentView.setTextViewText(R.id.tv_title, title);
         defaultContentView.setTextViewText(R.id.tv_content, content);
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm", Locale.getDefault()) ;
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm", Locale.getDefault());
         defaultContentView.setTextViewText(R.id.tv_time, df.format(new Date(when)));
         return defaultContentView;
     }

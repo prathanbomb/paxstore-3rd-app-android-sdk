@@ -4,10 +4,19 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 
-public class TerminalInfo implements Parcelable{
+public class TerminalInfo implements Parcelable {
 
-    public TerminalInfo(){}
+    public static final Creator<TerminalInfo> CREATOR = new Creator<TerminalInfo>() {
+        @Override
+        public TerminalInfo createFromParcel(Parcel in) {
+            return new TerminalInfo(in);
+        }
 
+        @Override
+        public TerminalInfo[] newArray(int size) {
+            return new TerminalInfo[size];
+        }
+    };
     private int bussinessCode;
     private String message;
     private String tid;
@@ -18,6 +27,21 @@ public class TerminalInfo implements Parcelable{
     private String merchantName;
     private int statusCode; //0:online; -1:offline
 
+
+    public TerminalInfo() {
+    }
+
+    public TerminalInfo(Parcel in) {
+        tid = in.readString();
+        terminalName = in.readString();
+        serialNo = in.readString();
+        modelName = in.readString();
+        factoryName = in.readString();
+        merchantName = in.readString();
+        statusCode = in.readInt();
+        bussinessCode = in.readInt();
+        message = in.readString();
+    }
 
     public int getBussinessCode() {
         return bussinessCode;
@@ -91,31 +115,6 @@ public class TerminalInfo implements Parcelable{
         this.merchantName = merchantName;
     }
 
-
-    public TerminalInfo(Parcel in) {
-        tid = in.readString();
-        terminalName = in.readString();
-        serialNo = in.readString();
-        modelName = in.readString();
-        factoryName = in.readString();
-        merchantName = in.readString();
-        statusCode = in.readInt();
-        bussinessCode = in.readInt();
-        message = in.readString();
-    }
-
-    public static final Creator<TerminalInfo> CREATOR = new Creator<TerminalInfo>() {
-        @Override
-        public TerminalInfo createFromParcel(Parcel in) {
-            return new TerminalInfo(in);
-        }
-
-        @Override
-        public TerminalInfo[] newArray(int size) {
-            return new TerminalInfo[size];
-        }
-    };
-
     @Override
     public int describeContents() {
         return 0;
@@ -123,6 +122,7 @@ public class TerminalInfo implements Parcelable{
 
     /**
      * 注意： 新的字段只能加在最后，不然会影响已有SDK的读取
+     *
      * @param dest
      * @param flags
      */
@@ -141,6 +141,7 @@ public class TerminalInfo implements Parcelable{
 
     /**
      * 参数是一个Parcel,用它来存储与传输数据
+     *
      * @param dest
      */
     public void readFromParcel(Parcel dest) {

@@ -156,10 +156,7 @@ public class StoreSdk {
      * @return
      */
     public boolean checkInitialization() {
-        if (paramApi != null && syncApi != null && updateApi != null) {
-            return true;
-        }
-        return false;
+        return paramApi != null && syncApi != null && updateApi != null;
     }
 
     /**
@@ -299,7 +296,7 @@ public class StoreSdk {
         if (appSecret == null) {
             logger.error("Store sdk not initialized");
         }
-        return  CryptoUtils.aesDecrypt(encryptedData, appSecret);
+        return CryptoUtils.aesDecrypt(encryptedData, appSecret);
     }
 
 
@@ -318,6 +315,7 @@ public class StoreSdk {
 
     /**
      * open PAXSTORE's download page
+     *
      * @param packageName your app packagename
      * @param context
      */
@@ -336,6 +334,7 @@ public class StoreSdk {
 
     /**
      * Get PAXSTORE PUSH online status.
+     *
      * @param context
      * @return
      */
@@ -371,20 +370,9 @@ public class StoreSdk {
         return onlineStatusInfo;
     }
 
-    public interface LocationCallBack {
-        void onLocationRetured(LocationInfo locationInfo);
-    }
-
-    /**
-     * callback of update inquirer {@link #initInquirer}
-     * this method will tell store app that whether your app can be updated.
-     */
-    public interface Inquirer {
-        boolean isReadyUpdate();
-    }
-
     /**
      * Get location from PAXSTORE.
+     *
      * @param context
      * @param locationCallback
      */
@@ -396,6 +384,17 @@ public class StoreSdk {
         //如果启动service失败，有可能没有结果返回，测试需要让它自动返回一个timeout的结果。
     }
 
+    public interface LocationCallBack {
+        void onLocationRetured(LocationInfo locationInfo);
+    }
+
+    /**
+     * callback of update inquirer {@link #initInquirer}
+     * this method will tell store app that whether your app can be updated.
+     */
+    public interface Inquirer {
+        boolean isReadyUpdate();
+    }
 
 
 }
