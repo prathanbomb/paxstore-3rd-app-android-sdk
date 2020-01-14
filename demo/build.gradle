@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 29
@@ -6,8 +8,8 @@ android {
         applicationId "th.co.digio.demo.paxstore"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 115
-        versionName "7.0.1"
+        versionCode 117
+        versionName "7.0.3"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -40,4 +42,7 @@ dependencies {
 
     implementation project(':sdk')
     implementation 'commons-io:commons-io:2.6'
+    implementation 'com.blankj:utilcodex:1.23.7'
+    implementation "androidx.core:core-ktx:1.1.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
